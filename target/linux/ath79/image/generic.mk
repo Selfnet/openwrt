@@ -285,6 +285,17 @@ define Device/airtight_c-75
 endef
 TARGET_DEVICES += airtight_c-75
 
+define Device/huawei_ap5030dn
+  SOC := qca9550
+  DEVICE_VENDOR := Huawei
+  DEVICE_MODEL := AP5030DN
+  DEVICE_PACKAGES := ath10k-firmware-qca988x-ct kmod-ath10k-ct kmod-usb2
+  KERNEL := kernel-bin | lzma -d16 | uImage lzma
+  IMAGES := squashfs.bin
+  IMAGE/squashfs.bin := | append-rootfs | pad-to 18534145
+endef
+TARGET_DEVICES += huawei_ap5030dn
+
 define Device/alfa-network_ap121f
   SOC := ar9331
   DEVICE_VENDOR := ALFA Network
