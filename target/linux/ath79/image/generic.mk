@@ -273,6 +273,14 @@ define Device/airtight_c-75
 endef
 TARGET_DEVICES += airtight_c-75
 
+define Device/huawei_ap5030dn
+  SOC := qca9550
+  DEVICE_VENDOR := Huawei
+  DEVICE_MODEL := AP5030DN
+  DEVICE_PACKAGES := ath10k-firmware-qca988x-ct kmod-ath10k-ct
+endef
+TARGET_DEVICES += huawei_ap5030dn
+
 define Device/alfa-network_ap121f
   SOC := ar9331
   DEVICE_VENDOR := ALFA Network

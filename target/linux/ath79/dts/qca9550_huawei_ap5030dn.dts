@@ -1,0 +1,8 @@
+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
+
+#include "qca955x.dtsi"
+
+/ {
+	model = "Huawei AP5030DN";
+	compatible = "huawei,ap5030dn", "qca,qca9550", "qca,qca9558";
+};
