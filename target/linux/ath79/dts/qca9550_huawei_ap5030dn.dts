@@ -10,3 +10,95 @@
 	model = "Huawei AP5030DN";
 	compatible = "huawei,ap5030dn", "qca,qca9550", "qca,qca9558";
 };
+
+&spi {
+	status = "okay";
+
+	flash@0 {
+		compatible = "jedec,spi-nor";
+		reg = <0>;
+		spi-max-frequency = <25000000>;
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			partition@0 {
+				label = "BiosA";
+				reg = <0x0 0x80000>;
+				read-only;
+			};
+
+			partition@80000 {
+				label = "BootupA";
+				reg = <0x80000 0x20000>;
+				read-only;
+			};
+
+			partition@a0000 {
+				label = "BootupB";
+				reg = <0xa0000 0x20000>;
+				read-only;
+			};
+
+			partition@c0000 {
+				label = "BootEnv";
+				reg = <0xc0000 0x20000>;
+				read-only;
+			};
+
+			partition@e0000 {
+				label = "BoardData";
+				reg = <0xe0000 0x20000>;
+				read-only;
+			};
+
+			partition@100000 {
+				label = "firmware";
+				reg = <0x100000 0xc00000>;
+				compatible = "denx,uimage";
+			};
+
+			partition@d00000 {
+				label = "configA";
+				reg = <0xd00000 0x300000>;
+			};
+
+			partition@1000000 {
+				label = "BiosB";
+				reg = <0x1000000 0x80000>;
+				read-only;
+			};
+
+			partition@1080000 {
+				label = "ResultA";
+				reg = <0x1080000 0x20000>;
+				read-only;
+			};
+
+			partition@10a0000 {
+				label = "ResultB";
+				reg = <0x10a0000 0x20000>;
+				read-only;
+			};
+
+			partition@10c0000 {
+				label = "SysImageB";
+				reg = <0x10c0000 0xc00000>;
+			};
+
+			partition@1cc0000 {
+				label = "configB";
+				reg = <0x1cc0000 0x300000>;
+			};
+
+			partition@1f80000 {
+				label = "ArtArgs";
+				reg = <0x1f80000 0x40000>;
+				read-only;
+			};
+
+		};
+	};
+};
