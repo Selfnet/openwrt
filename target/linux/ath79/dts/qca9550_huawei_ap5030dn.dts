@@ -9,6 +9,18 @@
 / {
 	model = "Huawei AP5030DN";
 	compatible = "huawei,ap5030dn", "qca,qca9550", "qca,qca9558";
+
+	chosen {
+		bootargs = "console=ttyS0,9600n8";
+	};
+
+	watchdog {
+		compatible = "linux,wdt-gpio";
+		gpios = <&gpio 15 GPIO_ACTIVE_HIGH>;
+		hw_algo = "toggle";
+		hw_margin_ms = <100>;
+		always-running;
+	};
 };
 
 &spi {
