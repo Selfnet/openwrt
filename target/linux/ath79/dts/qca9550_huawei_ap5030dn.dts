@@ -68,7 +68,7 @@
 
 			partition@100000 {
 				label = "firmware";
-				reg = <0x100000 0xc00000>;
+				reg = <0x100000 0x1800000>;
 				compatible = "denx,uimage";
 			};
 
