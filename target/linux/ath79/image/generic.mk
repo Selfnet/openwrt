@@ -289,10 +289,11 @@ define Device/huawei_ap5030dn
   SOC := qca9550
   DEVICE_VENDOR := Huawei
   DEVICE_MODEL := AP5030DN
-  DEVICE_PACKAGES := ath10k-firmware-qca988x-ct kmod-ath10k-ct kmod-usb2
+  DEVICE_PACKAGES := ath10k-firmware-qca988x-ct kmod-ath10k-ct
   KERNEL := kernel-bin | lzma -d16 | uImage lzma
   IMAGES := squashfs.bin
-  IMAGE/squashfs.bin := | append-rootfs | pad-to 18534145
+  SQUASHFS_SIZE := 18534145
+  IMAGE/squashfs.bin := | append-rootfs | pad-to $$$$(SQUASHFS_SIZE)
 endef
 TARGET_DEVICES += huawei_ap5030dn
 
