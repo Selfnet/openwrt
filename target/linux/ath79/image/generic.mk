@@ -290,10 +290,9 @@ define Device/huawei_ap5030dn
   DEVICE_VENDOR := Huawei
   DEVICE_MODEL := AP5030DN
   DEVICE_PACKAGES := ath10k-firmware-qca988x-ct kmod-ath10k-ct
-  KERNEL := kernel-bin | lzma -d16 | uImage lzma
-  IMAGES := squashfs.bin
-  SQUASHFS_SIZE := 18534145
-  IMAGE/squashfs.bin := | append-rootfs | pad-to $$$$(SQUASHFS_SIZE)
+  IMAGES := kernel.bin squashfs.bin
+  IMAGE/kernel.bin := | append-kernel
+  IMAGE/squashfs.bin := append-rootfs | pad-to $$$$(BLOCKSIZE)
 endef
 TARGET_DEVICES += huawei_ap5030dn
 
