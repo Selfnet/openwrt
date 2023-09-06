@@ -21,6 +21,23 @@
 		hw_margin_ms = <100>;
 		always-running;
 	};
+
+	virtual_flash {
+		compatible = "mtd-concat";
+		devices = <&fwconcat0 &fwconcat1>;
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			partition@0 {
+				label = "firmware";
+				reg = <0x0 0x1800000>;
+				compatible = "openwrt,uimage", "denx,uimage";
+			};
+		};
+	};
 };
 
 &spi {
@@ -66,10 +83,9 @@
 				read-only;
 			};
 
-			partition@100000 {
-				label = "firmware";
-				reg = <0x100000 0x1800000>;
-				compatible = "denx,uimage";
+			fwconcat0: partition@100000 {
+				label = "fwconcat0";
+				reg = <0x100000 0xc00000>;
 			};
 
 			partition@d00000 {
@@ -93,6 +109,11 @@
 				label = "ResultB";
 				reg = <0x10a0000 0x20000>;
 				read-only;
+			};
+
+			fwconcat1: partition@10c0000 {
+				label = "fwconcat1";
+				reg = <0x10c0000 0xc00000>;
 			};
 
 			partition@1cc0000 {
