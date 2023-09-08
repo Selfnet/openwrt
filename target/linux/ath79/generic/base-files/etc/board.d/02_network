@@ -150,6 +150,7 @@ ath79_setup_interfaces()
 	engenius,enstationac-v1|\
 	engenius,ews511ap|\
 	engenius,ews660ap|\
+	huawei,ap5030dn|\
 	ocedo,ursus|\
 	ruckus,zf7363|\
 	ruckus,zf7372|\
