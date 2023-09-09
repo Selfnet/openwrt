@@ -748,6 +748,10 @@ ath79_setup_macs()
 	hak5,packet-squirrel)
 		label_mac=$(mtd_get_mac_binary u-boot 0x1fc00)
 		;;
+	huawei,ap5030dn)
+		lan_mac=$(mtd_get_mac_binary art 0x2005b)
+		label_mac=$lan_mac
+		;;
 	iodata,etg3-r)
 		lan_mac=$(mtd_get_mac_ascii u-boot-env ethaddr)
 		wan_mac=$(macaddr_add "$lan_mac" -1)
