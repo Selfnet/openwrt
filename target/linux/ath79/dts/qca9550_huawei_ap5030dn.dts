@@ -182,13 +182,6 @@
 
 	phy0: ethernet-phy@1 {
 		reg = <1>;
-
-		qca,ar8327-initvals = <
-			0x04 0x07600000 /* PORT0_PAD_CTRL */
-			0x0c 0x00080080 /* PORT6_PAD_CTRL */
-			0x7c 0x0000007e /* PORT0_STATUS */
-			0x94 0x0000007e /* PORT6_STATUS */
-		>;
 	};
 };
 
