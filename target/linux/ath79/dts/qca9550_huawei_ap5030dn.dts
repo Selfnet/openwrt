@@ -146,14 +146,6 @@
 
 &pcie0 {
 	status = "okay";
-
-	wifi@0,0 {
-		compatible = "qcom,ath10k";
-		reg = <0x0000 0 0 0 0>;
-
-		nvmem-cells = <&calibration_art_5000>;
-		nvmem-cell-names = "calibration";
-	};
 };
 
 &eth0 {
