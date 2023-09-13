@@ -188,9 +188,12 @@
 	nvmem-cells = <&macaddr_art_2005b>;
 	nvmem-cell-names = "mac-address";
 
-	pll-data = <0x82000000 0x80000101 0x80001313>;
+	pll-data = <0xa6000000 0x80000101 0x80001313>;
 
-	phy-handle = <&phy0>;
+	fixed-link {
+		speed = <1000>;
+		full-duplex;
+	};
 };
 
 &eth1 {
