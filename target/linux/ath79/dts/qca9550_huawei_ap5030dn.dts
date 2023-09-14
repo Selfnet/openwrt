@@ -96,13 +96,11 @@
 			partition@80000 {
 				label = "BootupA";
 				reg = <0x80000 0x20000>;
-				read-only;
 			};
 
 			partition@a0000 {
 				label = "BootupB";
 				reg = <0xa0000 0x20000>;
-				read-only;
 			};
 
 			partition@c0000 {
