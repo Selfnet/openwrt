@@ -291,7 +291,8 @@ define Device/huawei_ap5030dn
   DEVICE_MODEL := AP5030DN
   DEVICE_PACKAGES := ath10k-firmware-qca988x-ct kmod-ath10k-ct
   ROOTFS_MIN_SIZE := 12240k
-  IMAGES := kernel.bin squashfs.bin
+  IMAGE_SIZE := 30720k
+  IMAGES += kernel.bin squashfs.bin
   IMAGE/kernel.bin := | append-kernel
   IMAGE/squashfs.bin := append-rootfs | pad-rootfs | pad-to $$$$(ROOTFS_MIN_SIZE) | pad-to $$$$(BLOCKSIZE)
 endef

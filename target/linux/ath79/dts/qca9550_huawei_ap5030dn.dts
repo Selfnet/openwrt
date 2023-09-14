@@ -67,7 +67,7 @@
 
 			partition@0 {
 				label = "firmware";
-				reg = <0x0 0x1800000>;
+				reg = <0x0 0x1e00000>;
 				compatible = "openwrt,uimage", "denx,uimage";
 			};
 		};
@@ -115,14 +115,11 @@
 				read-only;
 			};
 
+			// In the vendor layout, there are the "SysImageA" (12 MiB)
+			// and the "ConfigA" (3 MiB) partitions here.
 			fwconcat0: partition@100000 {
 				label = "fwconcat0";
-				reg = <0x100000 0xc00000>;
-			};
-
-			partition@d00000 {
-				label = "configA";
-				reg = <0xd00000 0x300000>;
+				reg = <0x100000 0xF00000>;
 			};
 
 			partition@1000000 {
@@ -143,14 +140,11 @@
 				read-only;
 			};
 
+			// In the vendor layout, there are the "SysImageB" (12 MiB)
+			// and the "ConfigB" (3 MiB) partitions here.
 			fwconcat1: partition@10c0000 {
 				label = "fwconcat1";
-				reg = <0x10c0000 0xc00000>;
-			};
-
-			partition@1cc0000 {
-				label = "configB";
-				reg = <0x1cc0000 0x300000>;
+				reg = <0x10c0000 0xF00000>;
 			};
 
 			art: partition@1fc0000 {
