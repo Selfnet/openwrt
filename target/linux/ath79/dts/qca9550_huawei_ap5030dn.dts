@@ -88,7 +88,7 @@
 			#size-cells = <1>;
 
 			partition@0 {
-				label = "BiosA";
+				label = "u-boot-a";
 				reg = <0x0 0x80000>;
 				read-only;
 			};
@@ -128,7 +128,7 @@
 			};
 
 			partition@1000000 {
-				label = "BiosB";
+				label = "u-boot-b";
 				reg = <0x1000000 0x80000>;
 				read-only;
 			};
