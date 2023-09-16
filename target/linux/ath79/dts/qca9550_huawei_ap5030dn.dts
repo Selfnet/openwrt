@@ -181,11 +181,7 @@
 	nvmem-cell-names = "mac-address";
 
 	pll-data = <0xa6000000 0x80000101 0x80001313>;
-
-	fixed-link {
-		speed = <1000>;
-		full-duplex;
-	};
+	phy-handle = <&phy0>;
 };
 
 &eth1 {
