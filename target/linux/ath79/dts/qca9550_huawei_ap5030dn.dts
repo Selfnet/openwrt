@@ -160,8 +160,9 @@
 &wmac {
 	status = "okay";
 
-	nvmem-cells = <&calibration_art_1000>;
-	nvmem-cell-names = "calibration";
+	nvmem-cells = <&macaddr_art_2005b>, <&calibration_art_1000>;
+	nvmem-cell-names = "mac-address", "calibration";
+	mac-address-increment = <3>;
 };
 
 &pcie0 {
@@ -183,6 +184,7 @@
 
 	nvmem-cells = <&macaddr_art_2005b>;
 	nvmem-cell-names = "mac-address";
+	mac-address-increment = <1>;
 
 	pll-data = <0x03000101 0x00000101 0x00001313>;
 	phy-handle = <&phy1>;
