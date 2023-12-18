@@ -285,19 +285,6 @@ define Device/airtight_c-75
 endef
 TARGET_DEVICES += airtight_c-75
 
-define Device/huawei_ap5030dn
-  SOC := qca9550
-  DEVICE_VENDOR := Huawei
-  DEVICE_MODEL := AP5030DN
-  DEVICE_PACKAGES := ath10k-firmware-qca988x-ct kmod-ath10k-ct
-  ROOTFS_MIN_SIZE := 12240k
-  IMAGE_SIZE := 30720k
-  IMAGES += kernel.bin squashfs.bin
-  IMAGE/kernel.bin := | append-kernel
-  IMAGE/squashfs.bin := append-rootfs | pad-rootfs | pad-to $$$$(ROOTFS_MIN_SIZE) | pad-to $$$$(BLOCKSIZE)
-endef
-TARGET_DEVICES += huawei_ap5030dn
-
 define Device/alfa-network_ap121f
   SOC := ar9331
   DEVICE_VENDOR := ALFA Network
@@ -1825,6 +1812,19 @@ define Device/hiwifi_hc6361
   IMAGE_SIZE := 16128k
 endef
 TARGET_DEVICES += hiwifi_hc6361
+
+define Device/huawei_ap5030dn
+  SOC := qca9550
+  DEVICE_VENDOR := Huawei
+  DEVICE_MODEL := AP5030DN
+  DEVICE_PACKAGES := ath10k-firmware-qca988x-ct kmod-ath10k-ct
+  ROOTFS_MIN_SIZE := 12240k
+  IMAGE_SIZE := 30720k
+  IMAGES += kernel.bin squashfs.bin
+  IMAGE/kernel.bin := | append-kernel
+  IMAGE/squashfs.bin := append-rootfs | pad-rootfs | pad-to $$$$(ROOTFS_MIN_SIZE) | pad-to $$$$(BLOCKSIZE)
+endef
+TARGET_DEVICES += huawei_ap5030dn
 
 define Device/iodata_etg3-r
   SOC := ar9342
