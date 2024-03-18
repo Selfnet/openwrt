@@ -150,6 +150,26 @@
 				label = "art";
 				reg = <0x1fc0000 0x40000>;
 				read-only;
+
+				nvmem-layout {
+					compatible = "fixed-layout";
+					#address-cells = <1>;
+					#size-cells = <1>;
+
+					macaddr_art_2005b: macaddr@2005b {
+						compatible = "mac-base";
+						reg = <0x2005b 0x6>;
+						#nvmem-cell-cells = <1>;
+					};
+
+					cal_art_1000: cal@1000 {
+						reg = <0x1000 0x440>;
+					};
+
+					cal_art_5000: cal@5000 {
+						reg = <0x5000 0x844>;
+					};
+				};
 			};
 		};
 	};
@@ -158,19 +178,25 @@
 &wmac {
 	status = "okay";
 
-	nvmem-cells = <&macaddr_art_2005b>, <&calibration_art_1000>;
+	nvmem-cells = <&macaddr_art_2005b 3>, <&cal_art_1000>;
 	nvmem-cell-names = "mac-address", "calibration";
-	mac-address-increment = <3>;
 };
 
 &pcie0 {
 	status = "okay";
+
+	wifi@0,0 {
+		compatible = "qcom,ath10k";
+		reg = <0x0000 0 0 0 0>;
+		nvmem-cells = <&macaddr_art_2005b 2>, <&cal_art_5000>;
+		nvmem-cell-names = "mac-address", "calibration";
+	};
 };
 
 &eth0 {
 	status = "okay";
 
-	nvmem-cells = <&macaddr_art_2005b>;
+	nvmem-cells = <&macaddr_art_2005b 0>;
 	nvmem-cell-names = "mac-address";
 
 	pll-data = <0xa6000000 0x80000101 0x80001313>;
@@ -180,9 +206,8 @@
 &eth1 {
 	status = "okay";
 
-	nvmem-cells = <&macaddr_art_2005b>;
+	nvmem-cells = <&macaddr_art_2005b 1>;
 	nvmem-cell-names = "mac-address";
-	mac-address-increment = <1>;
 
 	pll-data = <0x03000101 0x00000101 0x00001313>;
 	phy-handle = <&phy1>;
@@ -201,19 +226,5 @@
 
 	phy1: ethernet-phy@1 {
 		reg = <1>;
-	};
-};
-
-&art {
-	compatible = "nvmem-cells";
-	#address-cells = <1>;
-	#size-cells = <1>;
-
-	calibration_art_1000: calibration@1000 {
-		reg = <0x1000 0x440>;
-	};
-
-	macaddr_art_2005b: macaddr@2005b {
-		reg = <0x2005b 0x6>;
 	};
 };
