@@ -48,6 +48,9 @@
 	};
 
 	watchdog {
+		pinctrl-names = "default";
+		pinctrl-0 = <&wdt_gpio15>;
+
 		compatible = "linux,wdt-gpio";
 		gpios = <&gpio 15 GPIO_ACTIVE_HIGH>;
 		hw_algo = "toggle";
@@ -226,5 +229,11 @@
 
 	phy1: ethernet-phy@1 {
 		reg = <1>;
+	};
+};
+
+&pinmux {
+	wdt_gpio15: pinmux_wdt_gpio15 {
+		pinctrl-single,bits = <0xc 0x0 0xFF000000>;
 	};
 };
