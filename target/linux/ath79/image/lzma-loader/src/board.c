@@ -182,8 +182,38 @@ static inline void mr18_init(void)
 static inline void mr18_init(void) { }
 #endif
 
+#ifdef CONFIG_BOARD_HUAWEI_AP5030DN
+static inline void ap5030dn_init(void)
+{
+	const unsigned int ap5030dn_watchdog_gpio = 15;
+	unsigned int gpiobase, spibase, reg;
+
+	spibase = KSEG1ADDR(AR71XX_SPI_BASE);
+	gpiobase = KSEG1ADDR(AR71XX_GPIO_BASE);
+
+	printf("Huawei AP5030DN\n");
+
+	reg = READREG(gpiobase + AR71XX_GPIO_REG_OE);
+	WRITEREG(gpiobase + AR71XX_GPIO_REG_OE,
+		reg & ~(1 << ap5030dn_watchdog_gpio));
+
+	// Set MUX to output CPU_CLK/4 on GPIO15
+	reg = READREG(gpiobase + AR934X_GPIO_REG_FUNC);
+	WRITEREG(gpiobase + AR934X_GPIO_REG_FUNC,
+		reg | (1 << 7));
+
+	// Output stuff on GPIO15 by setting bit 31:24 in gpiobase + AR934X_GPIO_REG_OUT_FUNC3
+	reg = READREG(gpiobase + AR934X_GPIO_REG_OUT_FUNC3);
+	WRITEREG(gpiobase + AR934X_GPIO_REG_OUT_FUNC3,
+		reg | (84 << 24));
+}
+#else
+static inline void ap5030dn_init(void) { }
+#endif
+
 void board_init(void)
 {
 	tlwr1043nd_init();
 	mr18_init();
+	ap5030dn_init();
 }
