@@ -95,6 +95,10 @@
 				read-only;
 			};
 
+			// The BootupA/B partitions store the addresses
+			// of the main and backup kernel in flash (which is the same here).
+			// During sysupgrade, these addresses are set to the start of the
+			// "firmware" partition.
 			partition@80000 {
 				label = "BootupA";
 				reg = <0x80000 0x20000>;
