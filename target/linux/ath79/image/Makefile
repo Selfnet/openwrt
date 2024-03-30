@@ -47,12 +47,6 @@ define Build/append-loader-okli-uimage
 	cat "$(KDIR)/loader-$(word 1,$(1)).uImage" >> "$@"
 endef
 
-define Build/prepend-loader-okli
-	cat "$(KDIR)/loader-$(word 1,$(1)).$(LOADER_TYPE)" > "$@.new"
-	cat "$@" >> "$@.new"
-	mv "$@.new" "$@"
-endef
-
 define Build/relocate-kernel
 	rm -rf $@.relocate
 	$(CP) ../../generic/image/relocate $@.relocate
