@@ -241,3 +241,7 @@
 		pinctrl-single,bits = <0xc 0x0 0xFF000000>;
 	};
 };
+
+&wdt {
+	status = "disabled";
+};
