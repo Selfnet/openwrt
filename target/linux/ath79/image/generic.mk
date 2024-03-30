@@ -1820,7 +1820,8 @@ define Device/huawei_ap5030dn
   DEVICE_PACKAGES := ath10k-firmware-qca988x-ct kmod-ath10k-ct
   LOADER_TYPE := bin
   LOADER_FLASH_OFFS := 0x111E00
-  IMAGE_SIZE := 7680k
+  KERNEL_SIZE := 15360k
+  IMAGE_SIZE := 30720k
   COMPILE := loader-$(1).bin
   COMPILE/loader-$(1).bin := loader-okli-compile | pad-to 64k | uImage none
   KERNEL := kernel-bin | append-dtb | lzma | uImage lzma -M 0x4f4b4c49 | loader-okli $(1) 8128
