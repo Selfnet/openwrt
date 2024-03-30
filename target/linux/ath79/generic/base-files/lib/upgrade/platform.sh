@@ -68,10 +68,10 @@ platform_do_upgrade() {
 		platform_do_upgrade_failsafe_datachk "$1"
 		;;
 	huawei,ap5030dn)
-		# Write beginning address of "firmware" partition as KernelA address and KernelB address, each to BootupA & BootupB
-		echo "Setting Huawei-custom kernel addresses..."
-		echo -n -e "\x9e\x10\x00\x00\x9e\x10\x00\x00" | dd of=/dev/mtdblock1 bs=1 seek=$((0x254)) conv=notrunc
-		echo -n -e "\x9e\x10\x00\x00\x9e\x10\x00\x00" | dd of=/dev/mtdblock2 bs=1 seek=$((0x254)) conv=notrunc
+		# Store beginning address of "firmware" partition
+		# as KernelA address and KernelB address, each to BootupA & BootupB
+		echo -n -e "\x9e\x10\x00\x00\x9e\x10\x00\x00" | dd of=$(find_mtd_part BootupA) bs=1 seek=$((0x254)) conv=notrunc
+		echo -n -e "\x9e\x10\x00\x00\x9e\x10\x00\x00" | dd of=$(find_mtd_part BootupB) bs=1 seek=$((0x254)) conv=notrunc
 		default_do_upgrade "$1"
 		;;
 	jjplus,ja76pf2)
