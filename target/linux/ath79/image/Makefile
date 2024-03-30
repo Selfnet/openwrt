@@ -33,7 +33,6 @@ define Build/loader-okli-compile
 endef
 
 # Arguments: <output name> <kernel offset>
-# Pads the specified loader to a multiple of <kernel offset> and prepends the result
 define Build/loader-okli
 	dd if=$(KDIR)/loader-$(word 1,$(1)).$(LOADER_TYPE) bs=$(word 2,$(1)) conv=sync of="$@.new"
 	cat "$@" >> "$@.new"
