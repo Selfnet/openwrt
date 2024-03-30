@@ -1821,15 +1821,10 @@ define Device/huawei_ap5030dn
   LOADER_TYPE := bin
   LOADER_FLASH_OFFS := 0x110040
   IMAGE_SIZE := 7680k
-  ROOTFS_MIN_SIZE := 12240k
   COMPILE := loader-$(1).bin
   COMPILE/loader-$(1).bin := loader-okli-compile | pad-to 64k | uImage none
   KERNEL := kernel-bin | append-dtb | lzma | uImage lzma -M 0x4f4b4c49 | prepend-loader-okli $(1)
   KERNEL_INITRAMFS := kernel-bin | append-dtb | lzma | loader-kernel | uImage none
-  IMAGE_SIZE := 30720k
-  IMAGES += kernel.bin squashfs.bin
-  IMAGE/kernel.bin := | append-kernel
-  IMAGE/squashfs.bin := append-rootfs | pad-rootfs | pad-to $$$$(ROOTFS_MIN_SIZE) | pad-to $$$$(BLOCKSIZE)
 endef
 TARGET_DEVICES += huawei_ap5030dn
 
