@@ -50,6 +50,9 @@
 	// };
 
 	watchdog {
+		pinctrl-names = "default";
+		pinctrl-0 = <&wdt_gpio15>;
+
 		compatible = "linux,wdt-gpio";
 		gpios = <&gpio 15 GPIO_ACTIVE_HIGH>;
 		hw_algo = "toggle";
@@ -152,6 +155,26 @@
 				label = "art";
 				reg = <0x1fc0000 0x40000>;
 				read-only;
+
+				nvmem-layout {
+					compatible = "fixed-layout";
+					#address-cells = <1>;
+					#size-cells = <1>;
+
+					macaddr_art_2005b: macaddr@2005b {
+						compatible = "mac-base";
+						reg = <0x2005b 0x6>;
+						#nvmem-cell-cells = <1>;
+					};
+
+					cal_art_1000: cal@1000 {
+						reg = <0x1000 0x440>;
+					};
+
+					cal_art_5000: cal@5000 {
+						reg = <0x5000 0x844>;
+					};
+				};
 			};
 		};
 	};
@@ -204,20 +227,12 @@
 	};
 };
 
-&art {
-	compatible = "nvmem-cells";
-	#address-cells = <1>;
-	#size-cells = <1>;
-
-	cal_art_1000: calibration@1000 {
-		reg = <0x1000 0x440>;
+&pinmux {
+	wdt_gpio15: pinmux_wdt_gpio15 {
+		pinctrl-single,bits = <0xc 0x0 0xFF000000>;
 	};
+};
 
-	cal_art_5000: calibration@5000 {
-		reg = <0x5000 0x440>;
-	};
-
-	macaddr_art_2005b: macaddr@2005b {
-		reg = <0x2005b 0x6>;
-	};
+&wdt {
+	status = "disabled";
 };
