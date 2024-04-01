@@ -201,13 +201,17 @@
 	};
 };
 
+&ref {
+	clock-frequency = <40000000>;
+};
+
 &eth0 {
 	status = "okay";
 
 	nvmem-cells = <&macaddr_art_2005b 0>;
 	nvmem-cell-names = "mac-address";
 
-	pll-data = <0x02000000 0x00000101 0x00001313>;
+	pll-data = <0x06000000 0x04000101 0x0c001313>;
 	phy-mode = "rgmii-id";
 	phy-handle = <&phy>;
 
