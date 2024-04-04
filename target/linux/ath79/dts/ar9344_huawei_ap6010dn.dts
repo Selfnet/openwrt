@@ -3,8 +3,8 @@
 #include "ar9344.dtsi"
 
 #include <dt-bindings/gpio/gpio.h>
-// #include <dt-bindings/input/input.h>
-// #include <dt-bindings/leds/common.h>
+#include <dt-bindings/input/input.h>
+#include <dt-bindings/leds/common.h>
 
 / {
 	model = "Huawei AP6010DN";
@@ -14,40 +14,40 @@
 		bootargs = "console=ttyS0,9600n8";
 	};
 
-	// aliases {
-	// 	led-boot = &led_function_red;
-	// 	led-failsafe = &led_function_red;
-	// 	led-running = &led_function_green;
-	// 	led-upgrade = &led_function_red;
-	// };
+	aliases {
+		led-boot = &led_function_green;
+		led-failsafe = &led_function_red;
+		led-running = &led_function_green;
+		led-upgrade = &led_function_red;
+	};
 
-	// leds {
-	// 	compatible = "gpio-leds";
+	leds {
+		compatible = "gpio-leds";
 
-	// 	led_function_green: led-status-red {
-	// 		function = LED_FUNCTION_STATUS;
-	// 		color = <LED_COLOR_ID_GREEN>;
-	// 		gpios = <&gpio 18 GPIO_ACTIVE_HIGH>;
-	// 	};
+		led_function_green: led-status-red {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_GREEN>;
+			gpios = <&gpio 13 GPIO_ACTIVE_HIGH>;
+		};
 
-	// 	led_function_red: led-status-green {
-	// 		function = LED_FUNCTION_STATUS;
-	// 		color = <LED_COLOR_ID_RED>;
-	// 		gpios = <&gpio 11 GPIO_ACTIVE_HIGH>;
-	// 	};
+		led_function_red: led-status-green {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_RED>;
+			gpios = <&gpio 14 GPIO_ACTIVE_HIGH>;
+		};
 
-	// };
+	};
 
-	// keys {
-	// 	compatible = "gpio-keys";
+	keys {
+		compatible = "gpio-keys";
 
-	// 	restart {
-	// 		label = "Restart button";
-	// 		linux,code = <KEY_RESTART>;
-	// 		gpios = <&gpio 21 GPIO_ACTIVE_LOW>;
-	// 		debounce-interval = <60>;
-	// 	};
-	// };
+		restart {
+			label = "Restart button";
+			linux,code = <KEY_RESTART>;
+			gpios = <&gpio 21 GPIO_ACTIVE_LOW>;
+			debounce-interval = <60>;
+		};
+	};
 
 	watchdog {
 		pinctrl-names = "default";
