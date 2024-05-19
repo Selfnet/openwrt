@@ -19,6 +19,11 @@
 			status = "okay";
 		};
 
+		counter@4a1000 {
+			compatible = "qcom,qca-gcnt";
+			reg = <0x4a1000 0x4>;
+		};
+
 		tcsr@1949000 {
 			compatible = "qcom,tcsr";
 			reg = <0x1949000 0x100>;
@@ -52,6 +57,23 @@
 		hw_algo = "toggle";
 		hw_margin_ms = <100>;
 		always-running;
+	};
+
+	virtual_flash {
+		compatible = "mtd-concat";
+		devices = <&fwconcat0 &fwconcat1>;
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			partition@0 {
+				label = "firmware";
+				reg = <0x0 0x3200000>;
+				compatible = "openwrt,uimage", "denx,uimage";
+			};
+		};
 	};
 };
 
@@ -191,8 +213,9 @@
 				reg = <0x600000 0x100000>;
 			};
 
-			partition@700000 {
-				label = "SysImageA";
+			// In the vendor layout, the partion "SysImageA" lies here
+			fwconcat0: partition@700000 {
+				label = "fwconcat0";
 				reg = <0x700000 0x1900000>;
 			};
 
@@ -246,8 +269,9 @@
 				reg = <0x2600000 0x100000>;
 			};
 
-			partition@2700000 {
-				label = "SysImageB";
+			// In the vendor layout, the partion "SysImageB" lies here
+			fwconcat1: partition@2700000 {
+				label = "fwconcat1";
 				reg = <0x2700000 0x1900000>;
 			};
 		};
@@ -262,7 +286,7 @@
 
 &wifi0 {
 	status = "okay";
-	qcom,ath10k-calibration-variant = "Huawei-AP4050DN";
+	//qcom,ath10k-calibration-variant = "Huawei-AP4050DN";
 
 	nvmem-cell-names = "pre-calibration";
 	nvmem-cells = <&precal_art_1000>;
@@ -270,7 +294,7 @@
 
 &wifi1 {
 	status = "okay";
-	qcom,ath10k-calibration-variant = "Huawei-AP4050DN";
+	//qcom,ath10k-calibration-variant = "Huawei-AP4050DN";
 
 	nvmem-cell-names = "pre-calibration";
 	nvmem-cells = <&precal_art_5000>;
@@ -288,34 +312,11 @@
 	status = "okay";
 };
 
-&swport1 {
+&switch {
 	status = "okay";
-	label = "ethernet1";
-};
-
-&swport2 {
-	status = "okay";
-	label = "ethernet2";
-};
-
-&swport3 {
-	status = "okay";
-	label = "ethernet3";
 };
 
 &swport4 {
 	status = "okay";
-	label = "ethernet4";
+	label = "lan";
 };
-
-&swport5 {
-	status = "okay";
-	label = "ethernet5";
-};
-
-
-
-
-// &switch {
-// 	status = "okay";
-// };
