@@ -134,31 +134,37 @@
 			partition@0 {
 				label = "0:SBL1";
 				reg = <0x00 0x40000>;
+				read-only;
 			};
 
 			partition@40000 {
 				label = "0:MIBIB";
 				reg = <0x40000 0x40000>;
+				read-only;
 			};
 
 			partition@80000 {
 				label = "0:QSEE";
 				reg = <0x80000 0x80000>;
+				read-only;
 			};
 
 			partition@100000 {
 				label = "0:CDT";
 				reg = <0x100000 0x40000>;
+				read-only;
 			};
 
 			partition@140000 {
 				label = "0:DDRPARAMS";
 				reg = <0x140000 0x40000>;
+				read-only;
 			};
 
 			partition@180000 {
 				label = "0:APPSBL";
 				reg = <0x180000 0x100000>;
+				read-only;
 			};
 
 			partition@280000 {
@@ -188,12 +194,12 @@
 			partition@2c0000 {
 				label = "0:APPSBLENV";
 				reg = <0x2c0000 0x40000>;
+				read-only;
 			};
 
 			partition@300000 {
 				label = "ResultA";
 				reg = <0x300000 0x80000>;
-				read-only;
 
 				nvmem-layout {
 					compatible = "fixed-layout";
@@ -209,11 +215,13 @@
 			partition@380000 {
 				label = "configA";
 				reg = <0x380000 0x280000>;
+				read-only;
 			};
 
 			partition@600000 {
 				label = "bootimageA";
 				reg = <0x600000 0x100000>;
+				read-only;
 			};
 
 			// In the vendor layout, the partion "SysImageA" lies here
@@ -225,36 +233,43 @@
 			partition@2000000 {
 				label = "1:SBL1";
 				reg = <0x2000000 0x40000>;
+				read-only;
 			};
 
 			partition@2040000 {
 				label = "1:MIBIB";
 				reg = <0x2040000 0x40000>;
+				read-only;
 			};
 
 			partition@2080000 {
 				label = "1:QSEE";
 				reg = <0x2080000 0x80000>;
+				read-only;
 			};
 
 			partition@2100000 {
 				label = "1:CDT";
 				reg = <0x2100000 0x40000>;
+				read-only;
 			};
 
 			partition@2140000 {
 				label = "1:DDRPARAMS";
 				reg = <0x2140000 0x40000>;
+				read-only;
 			};
 
 			partition@2180000 {
 				label = "1:APPSBL";
 				reg = <0x2180000 0x100000>;
+				read-only;
 			};
 
 			partition@2280000 {
 				label = "Reservel";
 				reg = <0x2280000 0x80000>;
+				read-only;
 			};
 
 			partition@2300000 {
@@ -265,11 +280,13 @@
 			partition@2380000 {
 				label = "configB";
 				reg = <0x2380000 0x280000>;
+				read-only;
 			};
 
 			partition@2600000 {
 				label = "bootimageB";
 				reg = <0x2600000 0x100000>;
+				read-only;
 			};
 
 			// In the vendor layout, the partion "SysImageB" lies here
@@ -290,17 +307,11 @@
 &wifi0 {
 	status = "okay";
 	qcom,ath10k-calibration-variant = "Huawei-AP4050DN";
-
-	nvmem-cell-names = "pre-calibration", "mac-address";
-	nvmem-cells = <&precal_art_1000>, <&macaddr_resulta_10190 1>;
 };
 
 &wifi1 {
 	status = "okay";
 	qcom,ath10k-calibration-variant = "Huawei-AP4050DN";
-
-	nvmem-cell-names = "pre-calibration", "mac-address";
-	nvmem-cells = <&precal_art_5000>, <&macaddr_resulta_10190 2>;
 };
 
 &cryptobam {
