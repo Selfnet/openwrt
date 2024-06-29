@@ -24,13 +24,13 @@
 	leds {
 		compatible = "gpio-leds";
 
-		led_function_green: led-status-red {
+		led_function_green: led-status-green {
 			function = LED_FUNCTION_STATUS;
 			color = <LED_COLOR_ID_GREEN>;
 			gpios = <&gpio 13 GPIO_ACTIVE_HIGH>;
 		};
 
-		led_function_red: led-status-green {
+		led_function_red: led-status-red {
 			function = LED_FUNCTION_STATUS;
 			color = <LED_COLOR_ID_RED>;
 			gpios = <&gpio 14 GPIO_ACTIVE_HIGH>;
