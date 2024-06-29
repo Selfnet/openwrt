@@ -196,8 +196,9 @@ static inline void huawei_apXXXXdn_init(void)
 	WRITEREG(gpiobase + AR71XX_GPIO_REG_OE,
 			reg & ~(1 << apXXXXdn_watchdog_gpio));
 
-	/* Set GPIO15 MUX to output CLK_OBS4 (= AHB_CLK/2)
-	 * to keep the watchdog happy until wdt-gpio takes over
+	/* Set GPIO15 MUX to output CLK_OBS5 (= CPU_CLK/4)
+	 * or CLK_OBS4 (= AHB_CLK/2) to keep the watchdog happy
+	 * until wdt-gpio takes over
 	 */
 	reg = READREG(gpiobase + AR934X_GPIO_REG_OUT_FUNC3);
 #if defined(CONFIG_BOARD_HUAWEI_AP5030DN)
