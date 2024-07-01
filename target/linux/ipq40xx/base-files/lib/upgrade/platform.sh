@@ -172,9 +172,10 @@ platform_do_upgrade() {
 		# Store beginning address of the "firmware" partition
 		# as KernelA address and KernelB address, each to ResultA & ResultB
 		# This is the address from which the bootloader will try to load the kernel.
-		echo -n -e "\x20\x08\x70\x00\x20\x08\x70\x00" | dd of=$(find_mtd_part ResultA) bs=1 seek=$((0x4264)) conv=notrunc
-		echo -n -e "\x20\x08\x70\x00\x20\x08\x70\x00" | dd of=$(find_mtd_part ResultA) bs=1 seek=$((0x40264)) conv=notrunc
-		echo -n -e "\x20\x08\x70\x00\x20\x08\x70\x00" | dd of=$(find_mtd_part ResultB) bs=1 seek=$((0x4264)) conv=notrunc
+		export HUAWEI_AP4050DN_LOADADDR="\x20\x00\x70\x00\x20\x00\x70\x00"
+		echo -n -e $HUAWEI_AP4050DN_LOADADDR | dd of=$(find_mtd_part ResultA) bs=1 seek=$((0x4264)) conv=notrunc
+		echo -n -e $HUAWEI_AP4050DN_LOADADDR | dd of=$(find_mtd_part ResultA) bs=1 seek=$((0x40264)) conv=notrunc
+		echo -n -e $HUAWEI_AP4050DN_LOADADDR | dd of=$(find_mtd_part ResultB) bs=1 seek=$((0x4264)) conv=notrunc
 		default_do_upgrade "$1"
 		;;
 	linksys,ea6350v3 |\
