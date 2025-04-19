@@ -584,13 +584,6 @@ define Build/pad-extra
 	dd if=/dev/zero bs=$(1) count=1 >> $@
 endef
 
-# Prepend the specified number of zero bytes
-define Build/pad-extra-pre
-	dd if=/dev/zero bs=$(1) count=1 > $@.new
-	cat $@ >> $@.new
-	mv $@.new $@
-endef
-
 define Build/pad-offset
 	let \
 		size="$$(stat -c%s $@)" \

@@ -650,7 +650,7 @@ define Device/huawei_ap4050dn
 	DEVICE_MODEL := AP4050DN
 	SOC := qcom-ipq4018
 	DEVICE_PACKAGES := ipq-wifi-huawei_ap4050dn
-	KERNEL = kernel-bin | lzma | fit lzma $$(KDIR)/image-$$(DEVICE_DTS).dtb | pad-extra-pre 32
+	KERNEL = kernel-bin | lzma | fit lzma $$(KDIR)/image-$$(DEVICE_DTS).dtb
 endef
 TARGET_DEVICES += huawei_ap4050dn
 
