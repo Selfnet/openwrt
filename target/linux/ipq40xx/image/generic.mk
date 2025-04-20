@@ -651,6 +651,7 @@ define Device/huawei_ap4050dn
 	SOC := qcom-ipq4018
 	DEVICE_PACKAGES := ipq-wifi-huawei_ap4050dn
 	KERNEL = kernel-bin | lzma | fit lzma $$(KDIR)/image-$$(DEVICE_DTS).dtb
+	IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata
 endef
 TARGET_DEVICES += huawei_ap4050dn
 

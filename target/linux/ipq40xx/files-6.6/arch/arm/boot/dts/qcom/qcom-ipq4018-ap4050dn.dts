@@ -71,7 +71,7 @@
 			partition@0 {
 				label = "firmware";
 				reg = <0x0 0x3200000>;
-				compatible = "openwrt,uimage", "denx,uimage";
+				compatible = "denx,fit";
 			};
 		};
 	};
@@ -225,9 +225,15 @@
 			};
 
 			// In the vendor layout, the partion "SysImageA" lies here
-			fwconcat0: partition@700000 {
+			// which encompassed the space of "uboot" and "fwconcat0"
+			partition@700000 {
+				label = "uboot";
+				reg = <0x700000 0x80000>;
+			};
+
+			fwconcat0: partition@780000 {
 				label = "fwconcat0";
-				reg = <0x700000 0x1900000>;
+				reg = <0x780000 0x1880000>;
 			};
 
 			partition@2000000 {
