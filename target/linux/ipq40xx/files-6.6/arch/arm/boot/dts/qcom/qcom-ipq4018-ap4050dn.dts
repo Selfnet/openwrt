@@ -14,6 +14,15 @@
 		bootargs = "console=ttyMSM0,9600n8";
 	};
 
+	aliases {
+		ethernet0 = &gmac;
+		led-boot = &led_function_green;
+		led-failsafe = &led_function_red;
+		led-running = &led_function_green;
+		led-upgrade = &led_function_red;
+		label-mac-device = &gmac;
+	};
+
 	soc {
 		rng@22000 {
 			status = "okay";
@@ -48,6 +57,33 @@
 
 		watchdog@b017000 {
 			status = "okay";
+		};
+	};
+
+	keys {
+		compatible = "gpio-keys";
+
+		restart {
+			label = "reset";
+			linux,code = <KEY_RESTART>;
+			gpios = <&tlmm 63 GPIO_ACTIVE_LOW>;
+			debounce-interval = <60>;
+		};
+	};
+
+	leds {
+		compatible = "gpio-leds";
+
+		led_function_green: led-status-green {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_GREEN>;
+			gpios = <&tlmm 0 GPIO_ACTIVE_LOW>;
+		};
+
+		led_function_red: led-status-red {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_RED>;
+			gpios = <&tlmm 4 GPIO_ACTIVE_LOW>;
 		};
 	};
 
