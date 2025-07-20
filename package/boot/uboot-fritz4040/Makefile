@@ -8,13 +8,13 @@
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
-PKG_SOURCE_URL:=https://github.com/chunkeey/FritzBox-4040-UBOOT
+PKG_SOURCE_URL:=https://github.com/CodingMarco/FritzBox-4040-UBOOT
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=9d89013f9cc963eca25856c61fa066091d35f8de
-PKG_SOURCE_DATE:=2022-05-01
-PKG_MIRROR_HASH:=4e8106a7877ae6aa8da44bf95401b860d11f7d51417cc5a61ce59a353d4ee866
+PKG_SOURCE_VERSION:=a4946e81775cb3242e3a9b69ff8169bf5990f850
+PKG_SOURCE_DATE:=2025-04-21
+PKG_MIRROR_HASH:=4e1cd8e32294193c924915d2b44effa6e3b49a9ee2823ceb5a6a2aa0f73a4edf
 
-PKG_RELEASE:=5
+PKG_RELEASE:=6
 
 include $(INCLUDE_DIR)/u-boot.mk
 include $(INCLUDE_DIR)/package.mk
@@ -25,6 +25,8 @@ define U-Boot/Default
   UBOOT_BOARD:=$(1)
   UBOOT_IMAGE:=uboot-$(1).bin
 endef
+
+UBOOT_CREATOR := $(if $(filter huawei_ap4050dn,$(UBOOT_BOARD)),huaweicreator.sh,fritz/fritzcreator.sh)
 
 define U-Boot/fritz1200
   NAME:=FritzRepeater 1200
@@ -51,6 +53,12 @@ define U-Boot/fritz7530
   BUILD_DEVICES:=avm_fritzbox-7530
 endef
 
+define U-Boot/huawei_ap4050dn
+  NAME:=Huawei AP4050DN
+  BUILD_DEVICES:=huawei_ap4050dn
+  UBOOT_IMAGE:=uImage
+endef
+
 UBOOT_CONFIGURE_VARS += USE_PRIVATE_LIBGCC=yes
 UBOOT_MAKE_FLAGS = USE_PRIVATE_LIBGCC=yes
 export DTC
@@ -64,7 +72,14 @@ endef
 
 define Build/Compile
 	$(Build/Compile/U-Boot)
-	(cd $(PKG_BUILD_DIR); ./fritz/fritzcreator.sh $(UBOOT_BOARD);)
+	@( \
+	  cd $(PKG_BUILD_DIR) ; \
+	  if [ "$(UBOOT_BOARD)" = "huawei_ap4050dn" ]; then \
+	    ./huaweicreator.sh $(UBOOT_BOARD) ; \
+	  else \
+	    ./fritz/fritzcreator.sh $(UBOOT_BOARD) ; \
+	  fi \
+	)
 endef
 
 define Build/InstallDev
@@ -77,6 +92,6 @@ define Package/u-boot/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/upload-to-f4040.sh $(1)/
 endef
 
-UBOOT_TARGETS := fritz1200 fritz3000 fritz4040 fritz7520 fritz7530
+UBOOT_TARGETS := fritz1200 fritz3000 fritz4040 fritz7520 fritz7530 huawei_ap4050dn
 
 $(eval $(call BuildPackage/U-Boot))
