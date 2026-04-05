@@ -70,6 +70,32 @@ askey_do_upgrade() {
 	nand_do_upgrade "$1"
 }
 
+huawei_ap4050dn_do_upgrade() {
+	# Store beginning address of the "uboot" partition
+	# as KernelA address and KernelB address, each to ResultA & ResultB
+	# This is the address from which the bootloader will try to load the u-boot that we use as loader.
+	local loadaddr="\x00\x00\x70\x00"
+	for part in ResultA ResultB; do
+		local mtd=$(find_mtd_part "$part")
+		local tmp=/tmp/result.bin
+		dd if="$mtd" of="$tmp" 2>/dev/null
+		# Image A/B version strings at partition offsets 0x4040/0x4160
+		printf 'OpenWrt\0' | \
+			dd of="$tmp" bs=1 seek=$((0x4040)) conv=notrunc 2>/dev/null
+		printf 'OpenWrt\0' | \
+			dd of="$tmp" bs=1 seek=$((0x4160)) conv=notrunc 2>/dev/null
+		# KernelA (4B) + KernelB (4B) at partition offset 0x4264
+		printf "$loadaddr$loadaddr" | \
+			dd of="$tmp" bs=1 seek=$((0x4264)) conv=notrunc 2>/dev/null
+		# Recompute CRC32 of data (0x4C8 bytes at offset 0x4010)
+		dd if="$tmp" bs=1 skip=$((0x4010)) count=$((0x4C8)) 2>/dev/null | \
+			gzip -1 -c | tail -c 8 | dd bs=4 count=1 2>/dev/null | \
+			dd of="$tmp" bs=1 seek=$((0x4004)) conv=notrunc 2>/dev/null
+		mtd write "$tmp" "$part"
+	done
+	default_do_upgrade "$1"
+}
+
 zyxel_do_upgrade() {
 	local tar_file="$1"
 
@@ -168,14 +194,7 @@ platform_do_upgrade() {
 		emmc_do_upgrade "$1"
 		;;
 	huawei,ap4050dn)
-		# Store beginning address of the "uboot" partition
-		# as KernelA address and KernelB address, each to ResultA & ResultB
-		# This is the address from which the bootloader will try to load the u-boot that we use as loader.
-		HUAWEI_AP4050DN_LOADADDR="\x00\x00\x70\x00\x00\x00\x70\x00"
-		echo -n -e $HUAWEI_AP4050DN_LOADADDR | dd of=$(find_mtd_part ResultA) bs=1 seek=$((0x4264)) conv=notrunc
-		echo -n -e $HUAWEI_AP4050DN_LOADADDR | dd of=$(find_mtd_part ResultA) bs=1 seek=$((0x40264)) conv=notrunc
-		echo -n -e $HUAWEI_AP4050DN_LOADADDR | dd of=$(find_mtd_part ResultB) bs=1 seek=$((0x4264)) conv=notrunc
-		default_do_upgrade "$1"
+		huawei_ap4050dn_do_upgrade "$1"
 		;;
 	linksys,ea6350v3|\
 	linksys,ea8300|\
